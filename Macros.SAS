@@ -1,6 +1,6 @@
--- CREATE A VARIABLE - %LET
+// CREATE A VARIABLE - %LET
 
 %let a = 10;
 
--- CALL THE VARIABLE;
+// CALL THE VARIABLE;
 %put &a
