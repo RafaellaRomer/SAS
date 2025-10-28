@@ -10,7 +10,7 @@
 %put &a
 ```
 
-// JUST TO SEE BETTER ON LOG WINDOW:
+### JUST TO SEE BETTER ON LOG WINDOW:
 
 ```
 %put ----- > &a;
@@ -19,4 +19,15 @@
 
 <img width="200" height="188" alt="image" src="https://github.com/user-attachments/assets/1cb7f345-5563-44c8-bd8a-aa5f677fb2fb" />
 
+### NESTED MACROS VARS
 
+```
+%let b=10;
+
+%let a=b;
+
+%put ---> &b;
+%put ---> &a;
+%put ---> &&a;
+%put ---> &&&a;
+```
