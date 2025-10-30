@@ -1,4 +1,4 @@
-### Nested variables 
+### Nested variables with Ampersand (&)
 
 #### Rules of "&" and resolution
 
@@ -35,8 +35,11 @@
 ------------
 
 **IMPORTANT**
-Each pair of & is read as 1 & for the next level, so it will keep retriving pair by pair and combining, till achieve the last &variable, wich can be a & + a variable declared.
+Each pair of & is read as 1 & for the next level, so it will keep retriving pair by pair and combining, till achieve the last &variable, wich can be a & + variable declared.
 In the end, to achieve a nested variable, is needed a triple &&&& + variable: 
+
+<img width="513" height="249" alt="image" src="https://github.com/user-attachments/assets/e8fb482e-4ed4-4117-8308-85d30ebadd24" />
+
 
 **EXEMPLE 1** instead to return a 10 value received by variable b, it will receive the "b" value as a string:
 
@@ -53,6 +56,8 @@ In the end, to achieve a nested variable, is needed a triple &&&& + variable:
 <img width="169" height="119" alt="image" src="https://github.com/user-attachments/assets/6dbb71fc-e4bc-496f-89b1-aea7eb575e7c" />
 
 **EXEMPLE 2** The && becomes a & and the &a variable = b, so t becomes a &b during the reading porcess:
+
+<img width="513" height="249" alt="image" src="https://github.com/user-attachments/assets/86167922-8897-4525-bf4f-f9a5c1c8e6b2" />
 
 
 ```
