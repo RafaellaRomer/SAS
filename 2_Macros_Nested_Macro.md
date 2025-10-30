@@ -9,6 +9,7 @@
 %put ----> &&&a;
 ```
  **OUTPUT**
+ 
 <img width="277" height="83" alt="image" src="https://github.com/user-attachments/assets/a5c3abe6-dc91-4aef-86a3-cfa7480f59c9" />
 
 ---
