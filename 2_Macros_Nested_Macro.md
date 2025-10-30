@@ -37,8 +37,9 @@
 ------------
 
 **IMPORTANT**
+Each pair of & retrieves 1 varible, so it will keep retriving pair by pair, till get at the las &variable and access it values
 
-The last &variable is to retrieve the value of the nested variable, otherwhise, if puts jus 2 &s, it will store the given value as a text.
+
 
 For exemple, instead to return a 10 value received by variable b, it will receive the "b" value as a string:
 
@@ -54,15 +55,14 @@ For exemple, instead to return a 10 value received by variable b, it will receiv
 
 <img width="169" height="119" alt="image" src="https://github.com/user-attachments/assets/6dbb71fc-e4bc-496f-89b1-aea7eb575e7c" />
 
-The &&variable do not resolve the &a after && (&b), because the tird rule says that will read till all the rules are resolved. There far, when it try to execute && as b, theres no & for a, so it keeps the a resolution as last one
-
+The &&variable becomes a &a variable in the next level, after read &&, so it keeps returning th e&a value 
 ```
 %let b=10;
 %let a= b;
 
 %put ----> &b;
 %put ----> &a;
-%put ----> &&a; /* a incomplete, so doesn't take the doble & for b */
+%put ----> &&a; /* a 
 %put ----> &&&a;
 
 ```
