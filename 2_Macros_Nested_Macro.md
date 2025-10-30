@@ -2,6 +2,10 @@
 
 #### Rules of "&" and resolution
 
+  1. Nested variables are read from left to right
+  2. All consesecutive doble &s are resolved into a single "&". Except the last one
+  3. It keeps reading till all the &s are resolved
+  4. 
 ```
 %let b=10;
 %let a= b;
@@ -12,15 +16,8 @@
  
 <img width="277" height="83" alt="image" src="https://github.com/user-attachments/assets/a5c3abe6-dc91-4aef-86a3-cfa7480f59c9" />
 
----
+- OBS.: Not posible to make math calculations, as as a macro variable, everuthing is stored as a string:
 
-  1. Nested variables are read from left to right
-  2. All consesecutive doble &s are resolved into a single "&". Except the last one
-  3. It keeps reading till all the &s are resolved
-
-- OBS.: Not posible to make math calculations, as as a macro variable, everuthing is stored as a string
-
----
 ```
 %let d=10;
 %let c= d + 10; 
