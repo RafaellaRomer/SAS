@@ -51,6 +51,24 @@ For exemple, instead to return a 10 value received by variable b, it will receiv
 
 ```
 **OUTPUT**
+
 <img width="169" height="119" alt="image" src="https://github.com/user-attachments/assets/6dbb71fc-e4bc-496f-89b1-aea7eb575e7c" />
 
+The &&variable do not resolve the &a after && (&b), because the tird rule says that will read till all the rules are resolved. There far, when it try to execute && as b, theres no & for a, so it keeps the a resolution as last one
 
+```
+%let b=10;
+%let a= b;
+
+%put ----> &b;
+%put ----> &a;
+%put ----> &&a; /* a incomplete, so doesn't take the doble & for b */
+%put ----> &&&a;
+
+```
+
+<img width="300" height="80" alt="image" src="https://github.com/user-attachments/assets/ab359783-de5c-4e27-b8ba-66416b8533a6" />
+
+**OUTPUT**
+
+<img width="134" height="134" alt="image" src="https://github.com/user-attachments/assets/7cd0d27f-6c4a-4116-9681-7607e3726175" />
