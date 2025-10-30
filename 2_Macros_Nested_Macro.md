@@ -35,11 +35,10 @@
 ------------
 
 **IMPORTANT**
-Each pair of & retrieves 1 varible, so it will keep retriving pair by pair, till get at the las &variable and access it values
+Each pair of & is read as 1 & for the next level, so it will keep retriving pair by pair and combining, till achieve the last &variable, wich can be a & + a variable declared.
+In the end, to achieve a nested variable, is needed a triple &&&& + variable: 
 
-
-
-For exemple, instead to return a 10 value received by variable b, it will receive the "b" value as a string:
+**EXEMPLE 1** instead to return a 10 value received by variable b, it will receive the "b" value as a string:
 
 ```
 
@@ -53,14 +52,13 @@ For exemple, instead to return a 10 value received by variable b, it will receiv
 
 <img width="169" height="119" alt="image" src="https://github.com/user-attachments/assets/6dbb71fc-e4bc-496f-89b1-aea7eb575e7c" />
 
-The &&variable becomes a &a variable in the next level, after read &&, so it keeps returning th e&a value 
+**EXEMPLE 2** The && becomes a & and the &a variable = b, so t becomes a &b during the reading porcess:
+
+
 ```
 %let b=10;
 %let a= b;
 
-%put ----> &b;
-%put ----> &a;
-%put ----> &&a; /* a 
 %put ----> &&&a;
 
 ```
