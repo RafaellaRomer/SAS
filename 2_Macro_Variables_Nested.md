@@ -73,3 +73,40 @@ In the end, to achieve a nested variable, is needed a triple &&&& + variable:
 **OUTPUT**
 
 <img width="134" height="134" alt="image" src="https://github.com/user-attachments/assets/7cd0d27f-6c4a-4116-9681-7607e3726175" />
+
+### MULTIPLES NESTED VARIABLES
+
+```
+%let book = story;
+%let story = funny;
+%let funny = twist;
+%let twist = climax;
+%let climax= teste_rafa;
+%let teste_rafa=2 ;
+
+%put ------> &book;
+%put ------> &&book;
+%put ------> &&&book;
+%put ------> &&&&book;
+%put ------> &&&&&book;
+%put ------> &&&&&&book;
+%put ------> &&&&&&&book;
+%put ------> &&&&&&&&book;
+%put ------> &&&&&&&&&&&&&&&book;
+
+```
+
+EXPLANATIONN: 
+
+%put ------> &book; 												                        >> STORY 1
+%put ------> &&book; >> &book 										                  >> STORY 2
+%put ------> &&&book; >> (& + &book)-> &story 						          >> FUNNY 3
+%put ------> &&&&book; >> &&book >> &book 							            >> STORY 4
+%put ------> &&&&&book; >> (&& + &book)-> &&story >> &story 	      >> FUNNY 5
+%put ------> &&&&&&book; &&&book >> &&story >> &story 				      >> FUNNY 6
+%put ------> &&&&&&&book; (&&& + &book)-> &&&story >> &funny 	      >> TWIST 7
+%put ------> &&&&&&&&book; &&&&book >> &&book >> &book 				      >> STORY 8
+%put ------> &&&&&&&&&&&&&&&book; (&&&&&&&(7) + &book) >> 7&funny	  >> CLIMAX 15
+
+
+<img width="565" height="142" alt="image" src="https://github.com/user-attachments/assets/f96a8808-73b7-4bbf-afdc-03bebd09bc95" />
