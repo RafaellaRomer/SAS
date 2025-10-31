@@ -109,4 +109,33 @@ EXPLANATIONN:
 %put ------> &&&&&&&&&&&&&&&book; (&&&&&&&(7) + &book) >> 7&funny	  >> CLIMAX 15
 
 
-<img width="565" height="142" alt="image" src="https://github.com/user-attachments/assets/f96a8808-73b7-4bbf-afdc-03bebd09bc95" />
+
+<img width="1130" height="284" alt="image" src="https://github.com/user-attachments/assets/c8724c35-15bf-4514-97b9-8e2a50312395" />
+
+
+If with 7&book got into twist, then  15&book = 14 + &book , then the 7&funny result
+will also achieve 2 nested levels: climax 
+
+logic found was: 2 * & needed to achieve the previous level + 1:
+
+To get into, we need:
+
+	1st nested: 3&
+	2nd nested: 7&   (3 * 2 + 1)
+	3rd nested: 15&  (7 * 2 + 1)
+	4th nested: 31&  (15 * 2 + 1)
+	5TH nested: 63   (31 * 2 + 1)
+	
+	&& && && && && && && && && && && story
+ 								>> &&&&&&&&&& &story
+ 								>> &&&&&&&&&& funny
+ 								>> &&&&&funny
+ 								>> &&&&twist
+ 								>> &&twist
+ 								>> &twist
+ 								>>climax
+ 
+
+<img width="465" height="310" alt="image" src="https://github.com/user-attachments/assets/dcdf78d8-ec86-4d88-9128-9cfa0441edb0" />
+
+
