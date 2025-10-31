@@ -99,15 +99,3 @@ run;
 
 
 
-### NESTED MACROS VARS
-
-```
-%let b=10;
-
-%let a=b;
-
-%put ---> &b;
-%put ---> &a;
-%put ---> &&a;
-%put ---> &&&a;
-```
