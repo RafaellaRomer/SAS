@@ -1,0 +1,47 @@
+proc;
+run;
+
+proc means; // number type
+var
+run;
+
+proc frcq; // text type
+table
+run;
+
+proc sql;  // sql querys
+select..
+quit;
+ 
+proc univariate; // numeric variable analysis (mean, std dev, percentiles, normality tests, plots)
+var;
+run;
+
+
+desc (macro parameter)// 	The variable name to analyze, passed by you to the macro
+	// Example call 	%MyStats(lib=sashelp, data=cars, desc=msrp, stats=univariate)
+	
+	
+IF ELSE STATMENT
+
+
+```
+%if ... %then %let ...;
+%else %if ... %then %let ...;
+
+
+**DEFAULT ERROR MESSAGE IN THE ENDS TO AVOIDS CODE ERRORS**
+
+```
+%else %do;
+	%put ERROR: XXXX;
+	%return;
+%end;
+
+```
+
+**UPCASING TO AVOID CASE SENSITIVE ERRORS**
+
+```
+%if %upcase(&statproc) = MEANS %then %let stat = var;
+%else %if %upcase(&statproc) = FREQ %then %let stat = table;
