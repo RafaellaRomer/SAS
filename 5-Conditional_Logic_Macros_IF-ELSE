@@ -1,0 +1,242 @@
+/* ##CONDITIONAL LOGIC IN MACROS 
+
+### DATA WORLD
+
+proc data = ;
+if this then that
+else that
+run;
+
+### MACRO WORLD
+
+%macro xx();
+
+%if this %then that
+%else that
+
+%mend;
+
+```
+%macro myreport(lib,dsn,statvar); 
+proc means data=&lib..&dsn;
+var &statvar;
+run;
+proc print data=&lib..&dsn;
+run;
+%mend;
+```
+
+
+## IF ELSE STATMENT
+
+
+```
+%if ... %then %let ...;
+%else %if ... %then %let ...;
+
+```
+
+ transforming the original macro in a if-else statment to change the type of proc and result,
+according the type of the variable - if it is a number or a text type
+
+```
+
+%macro myreport(statproc,lib,dsn,statvar); 
+
+%if &statproc = means %then %let stat = var;
+%else %if &statproc = freq %then %let stat = table;
+proc &statproc data=&lib..&dsn;  // 
+&stat &statvar;
+run;
+proc print data=&lib..&dsn;
+run;
+%mend;
+
+%myreport(freq,sashelp,class, sex); 
+```
+
+**DEFAULT ERROR MESSAGE IN THE ENDS TO AVOIDS CODE ERRORS**
+
+```
+%else %do;
+	%put ERROR: XXXX;
+	%return;
+%end;
+
+```
+
+**UPCASING TO AVOID CASE SENSITIVE ERRORS**
+
+```
+%if %upcase(&statproc) = MEANS %then %let stat = var;
+%else %if %upcase(&statproc) = FREQ %then %let stat = table;
+```
+*/
+
+%macro myreport(statproc,lib,dsn,statvar); 
+
+%if &statproc = means %then %let stat = var;
+%else %if &statproc = freq %then %let stat = table;
+proc &statproc data=&lib..&dsn;  // 
+&stat &statvar;
+run;
+proc print data=&lib..&dsn;
+run;
+%mend;
+
+%myreport(freq,sashelp,class, sex); 
+
+
+
+
+/*------GPT SUGESTIONS-------------*/
+%macro myreport(statproc, lib, dsn, statvar, groupvars=);
+    %if &statproc = means %then %do;
+        proc means data=&lib..&dsn n nmiss mean std;
+            class &groupvars;
+            var &statvar;
+        run;
+    %end;
+
+    %else %if &statproc = freq %then %do;
+        proc freq data=&lib..&dsn;
+            tables &groupvars * &statvar / nocol nopercent;
+        run;
+    %end;
+
+    %else %if &statproc = count %then %do;
+        proc sql;
+            select &groupvars, count(*) as row_count
+            from &lib..&dsn
+            group by &groupvars
+            order by &groupvars;
+        quit;
+    %end;
+%mend;
+
+/*
+Step-by-step explanation of your SAS macro
+
+Nice macro — concise and clear. Below I’ll walk through each piece so you can remember the logic later, show what the macro expands to for your example call, and give a couple of quick robustness suggestions.
+
+1) Macro definition and parameters
+%macro myreport(statproc,lib,dsn,statvar);
+
+
+This defines a macro named myreport with four positional parameters:
+
+statproc — the procedure name you want to run (e.g. means or freq).
+
+lib — the libref (library) where the dataset lives (e.g. sashelp).
+
+dsn — the dataset name (e.g. class).
+
+statvar — the variable you want the procedure to act on (e.g. sex).
+
+2) Conditional logic to set a statement keyword
+%if &statproc = means %then %let stat = var;
+%else %if &statproc = freq %then %let stat = table;
+
+
+The macro checks the value of the statproc parameter and sets the macro variable stat accordingly:
+
+If statproc is means, then stat becomes var (because proc means uses the var statement).
+
+Else, if statproc is freq, then stat becomes table (because proc freq uses the tables / table statement).
+
+Important: These are text comparisons done at macro compile/run time. They are literal comparisons and case-sensitive unless you apply upcase().
+
+3) Run the requested procedure using the chosen statement
+proc &statproc data=&lib..&dsn;
+&stat &statvar;
+run;
+
+
+This expands to a standard PROC step using the statproc you passed and dataset &lib..&dsn.
+
+The second line inserts the correct statement (var or table) followed by the variable name &statvar.
+
+Example: if statproc=freq and statvar=sex then this becomes:
+
+proc freq data=sashelp.class;
+table sex;
+run;
+
+4) Print the dataset
+proc print data=&lib..&dsn;
+run;
+
+
+After the proc you requested completes, the macro runs proc print on the same dataset so you see the raw data in the output.
+
+5) End the macro
+%mend;
+
+
+Closes the macro definition.
+
+6) Example call and full expansion
+
+You called:
+
+%myreport(freq,sashelp,class, sex);
+
+
+Macro expansion produces this code (exactly what SAS executes):
+
+proc freq data=sashelp.class;
+table  sex;
+run;
+proc print data=sashelp.class;
+run;
+
+
+proc freq creates frequency tables for variable sex.
+
+proc print lists all observations in sashelp.class.
+
+7) Notes, pitfalls and suggested improvements
+
+Case sensitivity
+
+Macro comparisons above are literal. If a user passes Freq or FREQ it won’t match. Make comparisons robust:
+
+%if %upcase(&statproc) = MEANS %then %let stat = var;
+%else %if %upcase(&statproc) = FREQ %then %let stat = table;
+
+
+Default / unexpected statproc values
+
+If statproc is neither means nor freq, &stat will be undefined and the generated code will be invalid. Consider a default or an error message:
+
+%else %do;
+  %put ERROR: Unknown statproc=&statproc.. Allowed values are MEANS or FREQ.;
+  %return;
+%end;
+
+
+Your comment vs. current behavior
+
+Your comment says “change the type of proc and result according the type of the variable — if it is a number or a text type.”
+
+The current macro does not detect the variable type; it simply switches based on the statproc parameter the user passes.
+
+If you want automatic behavior based on the variable type, you’d need to query metadata (e.g., proc contents or dictionary.columns) to detect numeric vs. character and then choose means vs freq accordingly. Example approach:
+
+Use proc sql on dictionary.columns to get type for lib.dsn and statvar.
+
+Based on that result, set statproc and stat.
+
+table vs tables in PROC FREQ
+
+Both table and tables are accepted by PROC FREQ; you might prefer tables (common usage) or leave as is.
+
+8) Quick reference (cheat sheet)
+
+%myreport(statproc,lib,dsn,statvar) → runs proc &statproc and then proc print.
+
+If statproc=means → macro issues var &statvar; inside proc means.
+
+If statproc=freq → macro issues table &statvar; inside proc freq.
+
+Use %upcase() on comparisons and add an error/default branch for safety.
