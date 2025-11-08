@@ -13,7 +13,7 @@ data B;
 run;
 
 ```
-** Proc SQL Structure **
+**Proc SQL Structure**
 
 3 steps
 
@@ -27,12 +27,10 @@ create table B as
 select * from A;
 quit;
 ```
-MACRO | SQL |
-------|------|
 
-data B; | create table B; |
-
---------| --------
-
-set A | select * from A |
-run | quit |
+| MACRO | SQL |
+------------
+| data B; | create table B; |
+----------------
+|set A | select * from A |
+|run | quit |
