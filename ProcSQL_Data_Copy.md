@@ -1,6 +1,6 @@
 ### PROC SQL - simple data copy 
 
-** Macro structure**
+**Macro structure**
  3 steps 
 
 1 - data B; -> target 
@@ -28,9 +28,8 @@ select * from A;
 quit;
 ```
 
-| MACRO | SQL |
-------------
-| data B; | create table B; |
-----------------
-|set A | select * from A |
-|run | quit |
+| MACRO       |    SQL     |
+|-------------|------------|
+| data B;     | create table B; |
+|set A        | select * from A |
+|run          | quit            |
