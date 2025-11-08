@@ -28,8 +28,8 @@ select * from A;
 quit;
 
 
-| MACRO       |    SQL     |
-|-------------|-----------------|
+| **MACRO**       |    **SQL**     |
+|:-----------:|:---------------:|
 |data B;      | create table B; |
 |set A        | select * from A |
 |run          | quit            |
