@@ -26,7 +26,7 @@ proc sql;
 create table B as
 select * from A;
 quit;
-```
+
 
 | MACRO       |    SQL     |
 |-------------|-----------------|
